@@ -26,7 +26,7 @@ void main()
 }
 `;
 
-var color =
+var Color =
 {
 	rgb: function( r, g, b )
 	{
@@ -43,9 +43,19 @@ var color =
 		return [b, g, r, a];
 	},
 	
-	random: function()
+	random: function( randomizeAlpha )
 	{
-		return [randomInt( 255 ), randomInt( 255 ), randomInt( 255 ), randomInt( 255 )];
+		var r = randomInt( 255 );
+		var g = randomInt( 255 );
+		var b = randomInt( 255 );
+		
+		var a = 255;
+		if( randomizeAlpha )
+		{
+			a = randomInt( 255 );
+		}
+		
+		return [r, g, b, a];
 	}
 }
 
@@ -53,7 +63,7 @@ function Particle()
 {
 	this.position = vec3.create( 0, 0, 0 );
 	this.velocity = vec3.create( 0, 0, 0 );
-	this.color = color.rgba( 255, 255, 255, 255 );
+	this.color = Color.rgba( 255, 255, 255, 255 );
 	
 	this.size = 5;
 	
@@ -158,7 +168,7 @@ function updateScene( deltaTime )
 		temp2.subParticleCount = 3 + randomInt( 17 );
 		temp2.size = 5;
 		temp2.lifeTime = 1 + Math.random() * 2;
-		temp2.color = color.random();
+		temp2.color = Color.random( false );
 		
 		particleList.push( temp2 );
 		
@@ -180,6 +190,8 @@ function updateScene( deltaTime )
 				
 				var velocityModifier = 50 + Math.random() * 50;
 				// Summon sub-particles
+				var subParticleColor = Color.random( false );
+				var subParticleLifetime = 1 + Math.random() * 2;
 				for( var j = 0; j < part.subParticleCount; j++ )
 				{
 					var temp = new Particle();
@@ -192,8 +204,8 @@ function updateScene( deltaTime )
 					
 					temp.position = part.position;
 					temp.velocity = vec3.scalarMul( vec3.create( velX, velY, 0 ), velocityModifier );
-					temp.lifeTime = 1 + Math.random() * 2;
-					temp.color = color.random();
+					temp.lifeTime = subParticleLifetime;
+					temp.color = subParticleColor;
 					
 					particleList.push( temp );
 				}
@@ -225,52 +237,69 @@ function renderScene()
 {
 	gl.clear( gl.COLOR_BUFFER_BIT );
 	
-	var colorLocation = gl.getUniformLocation( glProgram, "u_color" );
-	var matrixLocation = gl.getUniformLocation( glProgram, "u_matrix" );
+	for( var i = 0; i < particleList.length; i++ )
+	{
+		var part = particleList[i];
+		
+		renderParticleTrail( gl, part );
+		renderParticle( gl, part );
+	}
+}
+
+function renderParticle( gl, particle )
+{
+	gl.useProgram( glProgram );
+	
+	gl.bindVertexArray( rectVao );
+	
+	var positionMatrix = mat3.translation( particle.position[0], particle.position[1] );
+	var moveOriginMatrix = mat3.translation( -particle.size / 2, -particle.size / 2 );
+	var orthoMatrix = mat3.ortho( 0, gl.canvas.clientWidth, 0, gl.canvas.clientHeight );
+	
+	var matrix = mat3.multiply( mat3.multiply( mat3.multiply( orthoMatrix, positionMatrix ), moveOriginMatrix ), mat3.scaling( particle.size, particle.size ) );
 	
 	var primitiveType = gl.TRIANGLE_FAN;
 	var offset = 0;
 	var count = circleNumSlices + 2;
 	
-	var orthoMatrix = mat3.ortho( 0, gl.canvas.clientWidth, 0, gl.canvas.clientHeight );
+	var colorLocation = gl.getUniformLocation( glProgram, "u_color" );
+	var matrixLocation = gl.getUniformLocation( glProgram, "u_matrix" );
 	
+	gl.uniform4f( colorLocation, particle.color[0] / 255.0, particle.color[1] / 255.0, particle.color[2] / 255.0, particle.color[3] / 255.0 );
+	gl.uniformMatrix3fv( matrixLocation, false, matrix );
+	gl.drawArrays( primitiveType, offset, count );
+}
+
+function renderParticleTrail( gl, particle )
+{
 	gl.useProgram( glProgram );
 	
-	gl.bindBuffer( gl.ARRAY_BUFFER, rectVbo );
+	gl.bindVertexArray( rectVao );
 	
-	for( var i = 0; i < particleList.length; i++ )
+	var primitiveType = gl.TRIANGLE_FAN;
+	var offset = 0;
+	var count = circleNumSlices + 2;
+	
+	var colorLocation = gl.getUniformLocation( glProgram, "u_color" );
+	var matrixLocation = gl.getUniformLocation( glProgram, "u_matrix" );
+	
+	var trailLength = particle.trail.length;
+	for( var j = 0; j < trailLength; j++ )
 	{
-		gl.bindVertexArray( rectVao );
-		gl.bindBuffer( gl.ARRAY_BUFFER, rectVbo );
+		var trailWidth = particle.size / ( trailLength - j + 1 );
+		var positionMatrix = mat3.translation( particle.trail[j][0], particle.trail[j][1] );
 		
-		var part = particleList[i];
+		var orthoMatrix = mat3.ortho( 0, gl.canvas.clientWidth, 0, gl.canvas.clientHeight );
+		var moveOriginMatrix = mat3.translation( -particle.size / 2, -particle.size / 2 );
 		
-		var positionMatrix = mat3.translation( part.position[0], part.position[1] );
-		var moveOriginMatrix = mat3.translation( -part.size / 2, -part.size / 2 );
+		var matrix = mat3.multiply( mat3.multiply( mat3.multiply( orthoMatrix, positionMatrix ), moveOriginMatrix ), mat3.scaling( trailWidth, trailWidth ) );
 		
-		var matrix = mat3.multiply( orthoMatrix, positionMatrix );
-		matrix = mat3.multiply( matrix, moveOriginMatrix );
-		matrix = mat3.multiply( matrix, mat3.scaling( part.size, part.size ) );
+		var col = particle.color.slice( 0 );
+		col[3] = ( col[3] / particle.maxTrailSize ) * ( j + 1 );
 		
-		gl.uniform4f( colorLocation, part.color[0] / 255.0, part.color[1] / 255.0, part.color[2] / 255.0, part.color[3] / 255.0 );
+		gl.uniform4f( colorLocation, col[0] / 255.0, col[1] / 255.0, col[2] / 255.0, col[3] / 255.0 );
 		gl.uniformMatrix3fv( matrixLocation, false, matrix );
 		gl.drawArrays( primitiveType, offset, count );
-		
-		var trailLength = part.trail.length;
-		for( var j = 0; j < trailLength; j++ )
-		{
-			var trailWidth = part.size / ( trailLength - j + 1 );
-			positionMatrix = mat3.translation( part.trail[j][0], part.trail[j][1] );
-			
-			matrix = mat3.multiply( mat3.multiply( mat3.multiply( orthoMatrix, positionMatrix ), moveOriginMatrix ), mat3.scaling( trailWidth, trailWidth ) );
-			
-			var col = part.color;
-			col[3] = ( col[3] / part.maxTrailSize ) * ( j + 1 );
-			
-			gl.uniform4f( colorLocation, col[0] / 255.0, col[1] / 255.0, col[2] / 255.0, col[3] / 255.0 );
-			gl.uniformMatrix3fv( matrixLocation, false, matrix );
-			gl.drawArrays( primitiveType, offset, count );
-		}
 	}
 }
 
@@ -280,7 +309,13 @@ function randomInt( range )
 }
 
 function main()
-{	
+{
+	var test = [1, 2, 3];
+	var test2 = test;
+	test2[0] = test2[0] / 5;
+	
+	console.log( test );
+	console.log( test2 );
 	var canvas = document.getElementById( "glCanvas" );
 	gl = canvas.getContext( "webgl2" );
 	if( gl )
