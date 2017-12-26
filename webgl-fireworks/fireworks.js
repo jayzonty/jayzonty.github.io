@@ -68,10 +68,11 @@ function Particle()
 	this.size = 5;
 	
 	this.lifeTime = 1;
+	this.remainingTime = 1;
 	
 	this.particleLayer = 1;
 	
-	this.subParticleCount = 10;
+	this.subParticleCount = 0;
 	
 	this.maxTrailSize = 20;
 	this.trail = [];
@@ -139,6 +140,9 @@ function animationFrame( currentTime )
 
 function initScene()
 {
+	gl.enable( gl.BLEND );
+	gl.blendFunc( gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA );
+	
 	rectVbo = createUnitCircleVbo( gl, circleNumSlices );
 	
 	rectVao = gl.createVertexArray();
@@ -164,11 +168,12 @@ function updateScene( deltaTime )
 	{
 		var temp2 = new Particle();
 		temp2.position = vec3.create( 50 + randomInt( gl.canvas.clientWidth / 2 ), 100, 0 );
-		temp2.velocity = vec3.create( Math.cos( Math.random() * Math.PI ) * Math.random() * 100, Math.sin( Math.random() * Math.PI ) * 300, 0 );
+		temp2.velocity = vec3.create( Math.cos( Math.random() * Math.PI ) * Math.random() * 100, 300 + Math.sin( Math.random() * Math.PI ) * 50, 0 );
 		temp2.subParticleCount = 3 + randomInt( 17 );
 		temp2.size = 5;
-		temp2.lifeTime = 1 + Math.random() * 2;
+		temp2.lifeTime = temp2.remainingTime = 1 + Math.random() * 2;
 		temp2.color = Color.random( false );
+		temp2.particleLayer = 1 + randomInt( 2 );
 		
 		particleList.push( temp2 );
 		
@@ -179,11 +184,11 @@ function updateScene( deltaTime )
 	{
 		var part = particleList[i];
 		
-		part.lifeTime -= deltaTime;
+		part.remainingTime -= deltaTime;
 		
-		if( part.lifeTime <= 0 )
+		if( part.remainingTime <= 0 )
 		{
-			if( part.particleLayer <= 2 )
+			if( part.particleLayer > 0 )
 			{
 				var subParticleCount = part.subParticleCount;
 				var theta = 2 * Math.PI	/ subParticleCount;
@@ -195,7 +200,7 @@ function updateScene( deltaTime )
 				for( var j = 0; j < part.subParticleCount; j++ )
 				{
 					var temp = new Particle();
-					temp.particleLayer = part.particleLayer + 1;
+					temp.particleLayer = part.particleLayer - 1;
 					temp.subParticleCount = 3 + randomInt( 17 );
 					temp.size = part.size;
 					
@@ -204,7 +209,7 @@ function updateScene( deltaTime )
 					
 					temp.position = part.position;
 					temp.velocity = vec3.scalarMul( vec3.create( velX, velY, 0 ), velocityModifier );
-					temp.lifeTime = subParticleLifetime;
+					temp.lifeTime = temp.remainingTime = subParticleLifetime;
 					temp.color = subParticleColor;
 					
 					particleList.push( temp );
@@ -262,10 +267,19 @@ function renderParticle( gl, particle )
 	var offset = 0;
 	var count = circleNumSlices + 2;
 	
+	var r = particle.color[0] / 255.0;
+	var g = particle.color[1] / 255.0;
+	var b = particle.color[2] / 255.0;
+	var a = 1.0;
+	if( particle.particleLayer == 0 )
+	{
+		a = particle.remainingTime / particle.lifeTime;
+	}
+	
 	var colorLocation = gl.getUniformLocation( glProgram, "u_color" );
 	var matrixLocation = gl.getUniformLocation( glProgram, "u_matrix" );
 	
-	gl.uniform4f( colorLocation, particle.color[0] / 255.0, particle.color[1] / 255.0, particle.color[2] / 255.0, particle.color[3] / 255.0 );
+	gl.uniform4f( colorLocation, r, g, b, a );
 	gl.uniformMatrix3fv( matrixLocation, false, matrix );
 	gl.drawArrays( primitiveType, offset, count );
 }
@@ -286,7 +300,7 @@ function renderParticleTrail( gl, particle )
 	var trailLength = particle.trail.length;
 	for( var j = 0; j < trailLength; j++ )
 	{
-		var trailWidth = particle.size / ( trailLength - j + 1 );
+		var trailWidth = ( particle.size / particle.maxTrailSize / 2 ) * ( j + 1 );
 		var positionMatrix = mat3.translation( particle.trail[j][0], particle.trail[j][1] );
 		
 		var orthoMatrix = mat3.ortho( 0, gl.canvas.clientWidth, 0, gl.canvas.clientHeight );
@@ -296,6 +310,10 @@ function renderParticleTrail( gl, particle )
 		
 		var col = particle.color.slice( 0 );
 		col[3] = ( col[3] / particle.maxTrailSize ) * ( j + 1 );
+		if( particle.particleLayer == 0 )
+		{
+			col[3] = col[3] * ( particle.remainingTime / particle.lifeTime );
+		}
 		
 		gl.uniform4f( colorLocation, col[0] / 255.0, col[1] / 255.0, col[2] / 255.0, col[3] / 255.0 );
 		gl.uniformMatrix3fv( matrixLocation, false, matrix );
@@ -310,12 +328,6 @@ function randomInt( range )
 
 function main()
 {
-	var test = [1, 2, 3];
-	var test2 = test;
-	test2[0] = test2[0] / 5;
-	
-	console.log( test );
-	console.log( test2 );
 	var canvas = document.getElementById( "glCanvas" );
 	gl = canvas.getContext( "webgl2" );
 	if( gl )
