@@ -201,5 +201,10 @@ var vec3 =
 	magnitude: function magnitude( a )
 	{
 		return Math.sqrt( magnitude2( a ) );
+	},
+	
+	clone: function( v )
+	{
+		return [v[0], v[1], v[2]];
 	}
 };
