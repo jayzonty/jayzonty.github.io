@@ -1,0 +1,7 @@
+- name: Projects
+  link: #
+  dropdown:
+    - name: Game Development Projects
+      link: /game-dev-projects
+    - name: Programming Projects
+      link: /programming-projects

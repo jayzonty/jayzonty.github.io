@@ -1,0 +1,35 @@
+{% assign current_lang = page.lang | default: site.lang | default: 'en' %}
+{% if current_lang == 'ja' %}
+    {% assign footer_menu_name = site.footer_menu | default: 'footer_menu' | append: '_ja' %}
+    {% assign footer_menu_data = site.data[footer_menu_name] | default: site.data.footer_menu_ja | default: site.data[site.footer_menu] %}
+{% else %}
+    {% assign footer_menu_name = site.footer_menu | default: 'footer_menu' %}
+    {% assign footer_menu_data = site.data[footer_menu_name] %}
+{% endif %}
+
+<footer class="footer">
+    <div class="container">
+        {% if footer_menu_data %}
+            <div class="columns is-multiline">
+                {% for item in footer_menu_data %}
+                    <div class="column has-text-centered">
+                        <div>
+                            <a href="{{ item.link | relative_url }}" class="link">{{ item.name }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% include follow.html %}
+
+        <div class="content is-small has-text-centered">
+            {% if current_lang == 'ja' %}
+                <p class="">このサイトは <a href="https://www.csrhymes.com">C.S. Rhymes</a> 氏作の <a href="https://github.com/chrisrhymes/bulma-clean-theme">Bulma Clean Theme</a> を使用して構築されています。</p>
+            {% else %}
+                <p class="">Site built using <a href="https://github.com/chrisrhymes/bulma-clean-theme">Bulma Clean Theme</a> by <a href="https://www.csrhymes.com">C.S. Rhymes</a></p>
+            {% endif %}
+        </div>
+    </div>
+</footer>
+

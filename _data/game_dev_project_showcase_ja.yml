@@ -1,0 +1,116 @@
+intro: |-
+
+items:
+  - title: Hamiltonian Escape
+    subtitle: 全てのマスを通過して脱出するパズルゲーム
+    description: |-
+      グリッド上のすべてのセルを1度ずつ通過して次のレベルを目指すシンプルなパズルゲームです。
+
+      開発期間は1週間で、[itch.io](https://itch.io) のゲームジャム「[Jame Gam #15 (2022)](https://itch.io/jam/jame-gam-15)」（テーマ：「No Going Back（後戻り禁止）」）に提出されました。
+
+      C++と[Raylib](https://www.raylib.com/)ライブラリを使用して制作され、BGMは[PixiTracker](https://warmplace.ru/soft/pixitracker/)で作成しました。
+    image: /img/hamiltonian-escape.gif
+    image_ratio: is-4by3
+    link: https://jayzonty.itch.io/hamiltonian-escape
+    link_text: ブラウザでプレイ (itch.io)
+    tags: C++,Raylib
+    repo_link: https://github.com/jayzonty/HamiltonianEscape
+    repo_link_text: GitHubリポジトリ
+    
+  - title: Ignis
+    subtitle: Raylibに着想を得たゲームプログラミングライブラリ
+    description: |-
+      C言語とVulkanを使用して、Raylibに着想を得た軽量なゲームプログラミングライブラリを作成する個人プロジェクトです。
+      
+      ウィンドウ生成、基本図形の描画、乱数生成ユーティリティ、2Dベクトル演算、基本的なフォント描画、ベジェ曲線描画などの機能を備えています。
+    image: /img/ignis-breakout.gif
+    image_ratio: is-4by3
+    tags: C,Vulkan,GLFW
+    repo_link: https://github.com/jayzonty/ignis-c
+    repo_link_text: GitHubリポジトリ
+
+  - title: Process Scheduling
+    subtitle: OSのプロセススケジューリングを題材にしたゲーム
+    
+    description: |-
+      OSがPC上で実行されるプロセスをスケジュールする仕組みをシミュレーションしたゲームです。
+      プレイヤーはプロセスをCPUコアに割り当て、I/O処理要求が発生した際には必要に応じて移動させます。
+
+      開発期間は2週間で、[itch.io](https://itch.io) のゲームジャム「[Finally Finish Something 2021](https://itch.io/jam/finally-finish-something-2021)」に提出されました。
+
+      [Unity](https://unity.com/)ゲームエンジンを使用して制作しました。
+    image: /img/process-scheduling.gif
+    image_ratio: is-3by2
+    link: https://jayzonty.itch.io/process-scheduling
+    link_text: ブラウザでプレイ (itch.io)
+    tags: Unity,C#
+    repo_link: https://github.com/jayzonty/ProcessScheduling
+    repo_link_text: GitHubリポジトリ
+
+  - title: Branch and Grow
+    subtitle: 木の根を伸ばしていくゲーム
+
+    description: |-
+      木の根を操作して土の中を掘り進め、分岐エネルギーが尽きる前にできるだけ多くの栄養を集めるゲームです。
+
+      開発期間は1週間で、[itch.io](https://itch.io) のゲームジャム「[Weekly Game Jam 166](https://itch.io/jam/weekly-game-jam-166)」に提出されました。
+
+      [Unity](https://unity.com/)ゲームエンジンを使用して制作しました。
+    image: /img/branch-and-grow.gif
+    image_ratio: is-3by2
+    link: https://jayzonty.itch.io/branch-and-grow
+    link_text: ブラウザでプレイ (itch.io)
+    tags: Unity,C#
+    repo_link: https://github.com/jayzonty/WeeklyGameJam166-Roots
+    repo_link_text: GitHubリポジトリ
+
+  - title: Memory Management
+    subtitle: プロセスへのメモリ割り当てを題材にしたゲーム
+
+    description: |-
+      OSがPC上で実行されるプロセスにメモリを割り当てる仕組みをシミュレーションしたゲームです。
+      プレイヤーは各プロセスのメモリ要件と処理時間に応じて、どのプロセスをRAMに割り当てるかを判断します。
+
+      初めて参加したゲームジャム作品で、2週間で制作し、[itch.io](https://itch.io) の「[My First Game Jam: Winter 2018](https://itch.io/jam/my-first-game-jam-winter-2018)」に提出しました。
+
+      [Unity](https://unity.com/)ゲームエンジンを使用して制作しました。
+
+    image: /img/memory-management.gif
+    image_ratio: is-3by2
+    link: https://jayzonty.itch.io/memory-management
+    link_text: ブラウザでプレイ (itch.io)
+    tags: Unity,C#
+    repo_link: https://github.com/jayzonty/MemoryManagement
+    repo_link_text: GitHubリポジトリ
+
+  - title: Marching Cubes
+    subtitle: マーチングキューブ法アルゴリズムの学習プロジェクト
+
+    description: |-
+      3D世界のプロシージャル生成に使われるコンピュータグラフィックスのアルゴリズム「マーチングキューブ法（Marching Cubes）」を学ぶためのプロジェクトです。
+      WASDキーとマウス操作で生成されたワールド内を移動できます。
+
+      C++とOpenGLを使用して制作しました。
+    image: /img/marching-cubes.gif
+    image_ratio: is-3by2
+    link: 
+    link_text: 
+    tags: C++,OpenGL,glad
+    repo_link: https://github.com/jayzonty/MarchingCubes
+    repo_link_text: GitHubリポジトリ
+
+  - title: Procedural Generation World
+    subtitle: マインクラフト風voxelゲームの制作試作
+
+    description: |-
+      パーリンノイズを利用してプロシージャルにボクセルワールドを生成する、マインクラフト風ゲームの制作試作プロジェクトです。
+      WASDキーとマウス操作での移動、およびチャンク単位の地形生成機能を備えています。
+
+      C++とOpenGLを使用して制作しました。
+    image: /img/procedural-world.gif
+    image_ratio: is-3by2
+    link: 
+    link_text: 
+    tags: C++,OpenGL,glad
+    repo_link: https://github.com/jayzonty/ProceduralGenerationWorld
+    repo_link_text: GitHubリポジトリ

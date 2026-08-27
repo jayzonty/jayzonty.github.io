@@ -1,0 +1,116 @@
+intro: |-
+
+items:
+  - title: Hamiltonian Escape
+    subtitle: Traverse all cells to escape the level
+    description: |-
+      A simple puzzle game where the player needs to visit all cells in a grid to proceed to the next level.
+
+      This game was made in 1 week, and was submitted to the [Jame Gam #15 (2022)](https://itch.io/jam/jame-gam-15) game jam on [itch.io](https://itch.io) with the theme "No Going Back".
+
+      The game was made using C++ and [Raylib library](https://www.raylib.com/), and the music was made using [PixiTracker](https://warmplace.ru/soft/pixitracker/).
+    image: /img/hamiltonian-escape.gif
+    image_ratio: is-4by3
+    link: https://jayzonty.itch.io/hamiltonian-escape
+    link_text: Play in Browser (itch.io)
+    tags: C++,Raylib
+    repo_link: https://github.com/jayzonty/HamiltonianEscape
+    repo_link_text: GitHub Repo
+    
+  - title: Ignis
+    subtitle: Game programming library inspired by Raylib
+    description: |-
+      This project was a personal attempt at making a small game programming library inspired by Raylib using C and Vulkan.
+      
+      The library supports functionalities such as window creation, drawing of simple shapes, random number generation utilities, basic 2D vector math functions, basic font rendering, and Bezier curves.
+    image: /img/ignis-breakout.gif
+    image_ratio: is-4by3
+    tags: C,Vulkan,GLFW
+    repo_link: https://github.com/jayzonty/ignis-c
+    repo_link_text: GitHub Repo
+
+  - title: Process Scheduling
+    subtitle: A game about computer process scheduling
+    
+    description: |-
+      A game that simulates the way operating systems schedule the execution of processes running in a computer.
+      Players need to assign processes to CPU cores, and move them as necessary when they request for I/O processing.
+
+      This game was made in 2 weeks, and was submitted to the [Finally Finish Something 2021](https://itch.io/jam/finally-finish-something-2021) game jam on [itch.io](https://itch.io).
+
+      The game was made using the [Unity game engine](https://unity.com/).
+    image: /img/process-scheduling.gif
+    image_ratio: is-3by2
+    link: https://jayzonty.itch.io/process-scheduling
+    link_text: Play in Browser (itch.io)
+    tags: Unity,C#
+    repo_link: https://github.com/jayzonty/ProcessScheduling
+    repo_link_text: GitHub Repo
+
+  - title: Branch and Grow
+    subtitle: A game about growing tree roots
+
+    description: |-
+      A game where the player guides the roots of a tree, digging through the soil for as much nutrients as possible before they run out of branching power.
+
+      This game was made in 1 week, and was submitted to the Weekly Game Jam 166 (2020) game jam on [itch.io](https://itch.io).
+
+      The game was made using the [Unity game engine](https://unity.com/).
+    image: /img/branch-and-grow.gif
+    image_ratio: is-3by2
+    link: https://jayzonty.itch.io/branch-and-grow
+    link_text: Play in Browser (itch.io)
+    tags: Unity,C#
+    repo_link: https://github.com/jayzonty/WeeklyGameJam166-Roots
+    repo_link_text: GitHub Repo
+
+  - title: Memory Management
+    subtitle: A game about allocating memory to computer processes
+
+    description: |-
+      A game that simulates how operating systems allocate memory to processes running in a computer.
+      Players need to decide which processes to allocate to the RAM at a given time, given their memory requirements and processing time.
+
+      This was my first time ever joining a game jam. The game was made in 2 weeks, and was submitted to the [My First Game Jam: Winter 2018](https://itch.io/jam/my-first-game-jam-winter-2018) game jam in [itch.io](https://itch.io).
+
+      The game was made using the [Unity game engine](https://unity.com/).
+
+    image: /img/memory-management.gif
+    image_ratio: is-3by2
+    link: https://jayzonty.itch.io/memory-management
+    link_text: Play in Browser (itch.io)
+    tags: Unity,C#
+    repo_link: https://github.com/jayzonty/MemoryManagement
+    repo_link_text: GitHub Repo
+
+  - title: Marching Cubes
+    subtitle: Project for learning the Marching Cubes algorithm
+
+    description: |-
+      A project made for learning the Marching Cubes computer graphics algorithm for procedurally generating 3D worlds.
+      The project features the ability to navigate through the world using WASD + mouse controls.
+
+      The application was made using C++ and OpenGL.
+    image: /img/marching-cubes.gif
+    image_ratio: is-3by2
+    link: 
+    link_text: 
+    tags: C++,OpenGL,glad
+    repo_link: https://github.com/jayzonty/MarchingCubes
+    repo_link_text: GitHub Repo
+
+  - title: Procedural Generation World
+    subtitle: Attempting to create a Minecraft-like game
+
+    description: |-
+      This project was an attempt to create a Minecraft-like game that utilizes Perlin-noise to procedurally generated voxel worlds.
+      The project features the ability to navigate through the world using WASD + mouse controls, and chunk-based terrain generation.
+
+      The application was made using C++ and OpenGL.
+    image: /img/procedural-world.gif
+    image_ratio: is-3by2
+    link: 
+    link_text: 
+    tags: C++,OpenGL,glad
+    repo_link: https://github.com/jayzonty/ProceduralGenerationWorld
+    repo_link_text: GitHub Repo

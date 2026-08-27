@@ -1,0 +1,6 @@
+- name: ホーム
+  link: /ja/
+- name: ゲーム開発プロジェクト
+  link: /ja/game-dev-projects/
+- name: プログラミングプロジェクト
+  link: /ja/programming-projects/

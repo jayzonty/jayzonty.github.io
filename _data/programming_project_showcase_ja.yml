@@ -1,0 +1,60 @@
+intro: |-
+
+items:
+  - title: Simple Video Player
+    subtitle: C言語、SDL、FFmpegで作成したシンプルな動画プレーヤー
+    
+    description: |-
+      SDL3とFFmpeg APIの学習のために作成した基本的な動画プレーヤーです。
+      
+      UIおよびキーボードショートカットによる再生/一時停止、シーク、音量調整機能、ドラッグ＆ドロップによる動画ファイルの読み込みに対応しています。
+    image: /img/simple-video-player.gif
+    image_ratio: is-16by9
+    tags: C,SDL,ffmpeg
+    repo_link: https://github.com/jayzonty/simple-video-player
+    repo_link_text: GitHubリポジトリ
+  
+  - title: QOI Image Tools
+    subtitle: QOI画像ファイル用のC言語エンコーダ/デコーダ
+    description: |-
+      QOI（.qoi）画像ファイルのエンコードおよびデコードを行うシングルファイルCヘッダーライブラリの個人制作プロジェクトです。
+      また、C++とOpenGLを使用したQOI画像のシンプルなビューアーも含まれています。
+      
+      ReducibleのYouTube動画「[How PNG Works: Compromising Speed for Quality](https://www.youtube.com/watch?v=EFUYNoFRHQI)」に触発されて制作しました。
+    image: /img/qoi-tools.png
+    image_ratio: is-16by9
+    tags: C,C++,OpenGL,GLFW
+    repo_link: https://github.com/jayzonty/qoi-image-tools
+    repo_link_text: GitHubリポジトリ
+
+  - title: Vulkan Model Viewer
+    subtitle: シンプルな3Dモデルビューアー
+    description: |-
+      VulkanグラフィックスAPIの学習成果を実践するために制作したシンプルな3Dモデルビューアーです。
+
+      C++とVulkanを使用し、3Dモデルの読み込みにはAssimpライブラリを使用しています。
+
+      ドラッグ＆ドロップによる3Dモデルの読み込みに対応しており、マウスとキーボード操作でカメラを自由に移動・回転できます。
+    image: /img/vulkan-model-viewer.gif
+    image_ratio: is-16by9
+    link: 
+    link_text: 
+    tags: C++,Vulkan,GLFW,Assimp
+    repo_link: https://github.com/jayzonty/vulkanmodelviewer
+    repo_link_text: GitHubリポジトリ
+
+  - title: Map Viewer 3D
+    subtitle: OpenStreetMapの建物・道路データを3D描画
+    description: |-
+      OpenStreetMapの建物および道路のXMLデータを活用し、3D空間上にレンダリングするプロジェクトです。
+
+      C++とVulkanを使用し、XMLファイルの解析にはtinyxmlライブラリを採用しています。
+
+      リソースフォルダからOpenStreetMap（.osm）ファイルを読み込み、マウスとキーボード操作で3Dマップ内を探索できます。
+    image: /img/map-viewer.gif
+    image_ratio: is-4by3
+    link: 
+    link_text: 
+    tags: C++,Vulkan,GLFW
+    repo_link: https://github.com/jayzonty/map-viewer-3d
+    repo_link_text: GitHubリポジトリ

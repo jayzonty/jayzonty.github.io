@@ -1,0 +1,60 @@
+intro: |-
+
+items:
+  - title: Simple Video Player
+    subtitle: A simple video player made with C, SDL, and FFmpeg
+    
+    description: |-
+      This project was my attempt at creating a basic video player in order to learn SDL3 and the FFmpeg API.
+      
+      The video player features the ability to play/pause, seek, and adjust volume controls via the UI and the keyboard keys, and also loading of the video file to play via drag-and-drop.
+    image: /img/simple-video-player.gif
+    image_ratio: is-16by9
+    tags: C,SDL,ffmpeg
+    repo_link: https://github.com/jayzonty/simple-video-player
+    repo_link_text: GitHub Repo
+  
+  - title: QOI Image Tools
+    subtitle: C encoder/decoder for QOI image files
+    description: |-
+      This project was a personal attempt to create a single file C header for encoding and decoding a QOI (.qoi) image file.
+      The project also contains a basic viewer for QOI images made using C++ and OpenGL.
+      
+      The project was inspired by Reducible's YouTube video entitled [How PNG Works: Compromising Speed for Quality](https://www.youtube.com/watch?v=EFUYNoFRHQI).
+    image: /img/qoi-tools.png
+    image_ratio: is-16by9
+    tags: C,C++,OpenGL,GLFW
+    repo_link: https://github.com/jayzonty/qoi-image-tools
+    repo_link_text: GitHub Repo
+
+  - title: Vulkan Model Viewer
+    subtitle: A simple 3D model viewer
+    description: |-
+      This project was an attempt to create a simple 3D model viewer in order to apply what I learned when I was studying the Vulkan Graphics API.
+
+      The application was made using C++ and Vulkan, and the Assimp library was used for loading 3D models.
+
+      3D models can be loaded via drag-and-drop, and mouse + keyboard controls can be used to control the camera.
+    image: /img/vulkan-model-viewer.gif
+    image_ratio: is-16by9
+    link: 
+    link_text: 
+    tags: C++,Vulkan,GLFW,Assimp
+    repo_link: https://github.com/jayzonty/vulkanmodelviewer
+    repo_link_text: GitHub Repo
+
+  - title: Map Viewer 3D
+    subtitle: Rendering OpenStreetMap buildings/roads in 3D
+    description: |-
+      This project was about utilizing the building and road XML data from OpenStreetMap, and rendering them in 3D.
+
+      The application was made using C++ and Vulkan, with the tinyxml library utilized for reading XML files.
+
+      The application loads OpenStreetMap (.osm) files from the resources folder, and mouse + keyboard controls can be used to navigate through the rendered 3D map.
+    image: /img/map-viewer.gif
+    image_ratio: is-4by3
+    link: 
+    link_text: 
+    tags: C++,Vulkan,GLFW
+    repo_link: https://github.com/jayzonty/map-viewer-3d
+    repo_link_text: GitHub Repo

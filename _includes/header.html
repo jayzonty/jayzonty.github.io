@@ -1,0 +1,105 @@
+{% assign current_lang = page.lang | default: site.lang | default: 'en' %}
+{% if current_lang == 'ja' %}
+    {% assign nav_items = site.data.navigation_ja | default: site.data.navigation %}
+    {% assign home_url = "/ja/" | relative_url %}
+    {% assign home_text = "ホーム" %}
+{% else %}
+    {% assign nav_items = site.data.navigation %}
+    {% assign home_url = "/" | relative_url %}
+    {% assign home_text = "Home" %}
+{% endif %}
+
+<nav
+    class="navbar is-primary {% if site.fixed_navbar %} is-fixed-{{ site.fixed_navbar }} {% endif %}"
+    x-data="{ openNav: false }"
+>
+    <div class="container">
+        <div class="navbar-brand">
+            <a href="{{ home_url }}" class="navbar-item">
+                {{ site.title }}
+            </a>
+            <a
+                role="button"
+                class="navbar-burger burger"
+                aria-label="menu"
+                aria-expanded="false"
+                data-target="navMenu"
+                :class="{ 'is-active': openNav }"
+                x-on:click="openNav = !openNav"
+            >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu" id="navMenu" :class="{ 'is-active': openNav }">
+            <div class="navbar-start">
+                <a href="{{ home_url }}" class="navbar-item {% if page.url == '/' or page.url == '/ja/' %}is-active{% endif %}">{{ home_text }}</a>
+                {% if nav_items %}
+                    {% for item in nav_items %}
+                        {% if item.dropdown %}
+                            <div class="navbar-item has-dropdown is-hoverable {% if site.fixed_navbar == 'bottom' %} has-dropdown-up {% endif %}">
+                                <a
+                                    href="{{ item.link | relative_url }}"
+                                    class="navbar-link {% if page.url contains item.link and item.link != '#' %}is-active{% endif %}"
+                                >
+                                    {{- item.name -}}
+                                </a>
+                                <div class="navbar-dropdown">
+                                    {% for subitem in item.dropdown %}
+                                        <a
+                                            href="{{ subitem.link | relative_url }}"
+                                            class="navbar-item {% if subitem.link == page.url %}is-active{% endif %}"
+                                        >
+                                            {{- subitem.name -}}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% else %}
+                            <a
+                                href="{{ item.link | relative_url }}"
+                                class="navbar-item {% if item.link == page.url %}is-active{% endif %}"
+                            >
+                                {{- item.name -}}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="navbar-end">
+                {% assign en_url = "/" | relative_url %}
+                {% assign ja_url = "/ja/" | relative_url %}
+                {% if page.ref %}
+                    {% assign alt_pages = site.pages | where: "ref", page.ref %}
+                    {% for p in alt_pages %}
+                        {% assign p_lang = p.lang | default: "en" %}
+                        {% if p_lang == "en" %}
+                            {% assign en_url = p.url | relative_url %}
+                        {% elsif p_lang == "ja" %}
+                            {% assign ja_url = p.url | relative_url %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <div class="navbar-item">
+                    <div class="buttons has-addons">
+                        <a href="{{ en_url }}" class="button is-small {% if current_lang != 'ja' %}is-info is-selected{% else %}is-light is-outlined{% endif %}">
+                            EN
+                        </a>
+                        <a href="{{ ja_url }}" class="button is-small {% if current_lang == 'ja' %}is-info is-selected{% else %}is-light is-outlined{% endif %}">
+                            日本語
+                        </a>
+                    </div>
+                </div>
+
+                {% if site.gh_sponsor %}
+                    <a class="navbar-item" href="https://github.com/sponsors/{{ site.gh_sponsor }}">
+                        <span class="icon gh-sponsor"><i class="fas fa-heart"></i></span>
+                        <span>Sponsor</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
